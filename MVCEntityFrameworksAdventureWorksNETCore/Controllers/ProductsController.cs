@@ -28,7 +28,7 @@ namespace MVCEntityFrameworksAdventureWorksNETCore.Controllers
             //                orderby producto.Name
             //                select producto;
             var filtrado3 = from producto in adventureWorks2016Context
-                where (producto.Name.StartsWith("a") || producto.Name.StartsWith("b") || producto.Name.StartsWith("c") && producto.Name.Contains("e"))
+                where (producto.Name.StartsWith("a") || producto.Name.StartsWith("b") || producto.Name.StartsWith("c")) && producto.Name.Contains("e")
                 orderby producto.SellStartDate, producto.Color
                 select producto;
             return View(await filtrado3.ToListAsync());
