@@ -9,6 +9,16 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+<form asp-action="index" asp-controller="Products">
+    <select name="Filtro" asp-action="Index">
+        <option value="Sin">Sin Filtro</option>
+        <option value="F1">Filtro1</option>
+        <option value="F2">Filtro2</option>
+        <option value="F3">Filtro3</option>
+    </select>
+    <input type="submit"/>
+</form>
+
 <table class="table">
     <thead>
         <tr>

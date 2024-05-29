@@ -19,19 +19,27 @@ namespace MVCEntityFrameworksAdventureWorksNETCore.Controllers
         }
 
         // GET: Products
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string Filtro)
         {
             var adventureWorks2016Context = _context.Products.Include(p => p.ProductModel).Include(p => p.ProductSubcategory).Include(p => p.SizeUnitMeasureCodeNavigation).Include(p => p.WeightUnitMeasureCodeNavigation);
-            //var filtrado1 = from producto in adventureWorks2016Context where (producto.Color.ToLower().Equals("red") || producto.Color.ToLower().Equals("green")) && producto.ListPrice > 1  orderby producto.SafetyStockLevel select producto;
-            //var filtrado2 = from producto in adventureWorks2016Context
-            //                where producto.Color.ToLower().Equals("red") && producto.ProductSubcategoryId != 2 && !(producto.Name.EndsWith("a") || producto.Name.EndsWith("e") || producto.Name.EndsWith("i") || producto.Name.EndsWith("o") || producto.Name.EndsWith("u") || producto.Name.EndsWith("x"))
-            //                orderby producto.Name
-            //                select producto;
+            var filtrado1 = from producto in adventureWorks2016Context where (producto.Color.ToLower().Equals("red") || producto.Color.ToLower().Equals("green")) && producto.ListPrice > 1 orderby producto.SafetyStockLevel select producto;
+            var filtrado2 = from producto in adventureWorks2016Context
+                            where producto.Color.ToLower().Equals("red") && producto.ProductSubcategoryId != 2 && !(producto.Name.EndsWith("a") || producto.Name.EndsWith("e") || producto.Name.EndsWith("i") || producto.Name.EndsWith("o") || producto.Name.EndsWith("u") || producto.Name.EndsWith("x"))
+                            orderby producto.Name
+                            select producto;
             var filtrado3 = from producto in adventureWorks2016Context
                 where (producto.Name.StartsWith("a") || producto.Name.StartsWith("b") || producto.Name.StartsWith("c")) && producto.Name.Contains("e")
                 orderby producto.SellStartDate, producto.Color
                 select producto;
-            return View(await filtrado3.ToListAsync());
+            switch (Filtro)
+            {
+                case "Sin": return View(await adventureWorks2016Context.ToListAsync());
+                case "F1": return View(await filtrado1.ToListAsync());
+                case "F2": return View(await filtrado2.ToListAsync());
+                case "F3": return View(await filtrado3.ToListAsync());
+
+            }
+            return View(await adventureWorks2016Context.ToListAsync());
         }
 
         // GET: Products/Details/5
