@@ -9,12 +9,13 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+<h1>@ViewBag.titulo</h1>
 <form asp-action="index" asp-controller="Products">
     <select name="Filtro" asp-action="Index">
         <option value="Sin">Sin Filtro</option>
-        <option value="F1">Filtro1</option>
-        <option value="F2">Filtro2</option>
-        <option value="F3">Filtro3</option>
+        <option value="F1">1. Sacar los productos de color rojo o verde (red or green), ordenados por SafetyStockLevel de forma ascendente para todo aquellos productos que tengan un ListPrice superior a 1.</option>
+        <option value="F2">2. Sacar los productos de color rojo, ordenados por nombre (name), eliminar los productos de la subcategoria 2 y aquellos que terminen en vocal o en una x.</option>
+        <option value="F3">3. Sacar los productos ordenados por SellStartDate y luego por Color, quiero sólo aquellos que comiencen por a,b o c o que contengan una e en el nombre(name)</option>
     </select>
     <input type="submit"/>
 </form>

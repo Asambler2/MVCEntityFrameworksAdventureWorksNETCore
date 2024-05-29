@@ -33,12 +33,18 @@ namespace MVCEntityFrameworksAdventureWorksNETCore.Controllers
                 select producto;
             switch (Filtro)
             {
-                case "Sin": return View(await adventureWorks2016Context.ToListAsync());
-                case "F1": return View(await filtrado1.ToListAsync());
-                case "F2": return View(await filtrado2.ToListAsync());
-                case "F3": return View(await filtrado3.ToListAsync());
+                case "Sin": ViewBag.titulo = "Sin Filtro"; 
+                    return View(await adventureWorks2016Context.ToListAsync());
+                case "F1": ViewBag.titulo = "1. Sacar los productos de color rojo o verde (red or green), ordenados por SafetyStockLevel de forma ascendente para todo aquellos productos que tengan un ListPrice superior a 1."; 
+                    return View(await filtrado1.ToListAsync());
+                case "F2": ViewBag.titulo = "2. Sacar los productos de color rojo, ordenados por nombre (name), eliminar los productos de la subcategoria 2 y aquellos que terminen en vocal o en una x."; 
+                    return View(await filtrado2.ToListAsync());
+                case "F3": ViewBag.titulo = "3. Sacar los productos ordenados por SellStartDate y luego por Color, quiero sólo aquellos que comiencen por a,b o c o que contengan una e en el nombre(name)"; 
+                    return View(await filtrado3.ToListAsync());
 
             }
+
+            ViewBag.titulo = "Sin Filtro";
             return View(await adventureWorks2016Context.ToListAsync());
         }
 
